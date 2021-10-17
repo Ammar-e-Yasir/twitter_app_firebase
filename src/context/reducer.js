@@ -1,7 +1,7 @@
 export let data = {
     authUser: null,
-    tweets: [],
-    mytweets: []
+    allTweets: [],
+    mytweets : []
 
 }
 
@@ -14,20 +14,28 @@ export function reducer(state, action) {
             }
         }
 
-        case "TWEETS": {
+        case "ALL_TWEETS": {
+            let allTweetsClone = state.allTweets.slice(0);
+            allTweetsClone.push(action.payload)
+            // console.log(allTweetsClone)  
+
 
             return {
                 ...state,
-                tweets: action.payload
+                allTweets : allTweetsClone
             }
         }
 
+
+
         case "MY_TWEETS": {
-            // console.log(state.mytweets)
+            let myTweetsClone = state.mytweets.slice(0);
+            myTweetsClone.push(action.payload)
+            // console.log(myTweetsClone)
 
             return {
                 ...state,
-                mytweets: action.payload
+                mytweets: myTweetsClone
             }
         }
 

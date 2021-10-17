@@ -9,7 +9,7 @@ import Nav from '../components/navbar';
 import Signup from '../screens/signup';
 import Signin from '../screens/signin';
 import { auth, onAuthStateChanged, db, doc, getDoc } from './firebase';
-import Home from "../screens/home";
+import UserHome from "../screens/user-home";
 import MyTweet from "../screens/my-tweet";
 import MyProfile from "../screens/my-profile";
 import MyComponent from "../screens/my-component";
@@ -42,8 +42,6 @@ export default function App() {
                 <Switch>
 
 
-                    <Route exact path='/write' component={MyComponent} />
-
 
 
 
@@ -56,6 +54,7 @@ export default function App() {
                                 <Route path="/signin">
                                     <Signin />
                                 </Route>
+
                             </>
                     }
 
@@ -67,9 +66,11 @@ export default function App() {
                             <>
 
 
-                                <Route path='/user-home' component={Home} />
+                                <Route path='/user-home' component={UserHome} />
                                 <Route path='/user-tweet' component={MyTweet} />
                                 <Route path='/user-profile' component={MyProfile} />
+                                <Route exact path='/write' component={MyComponent} />
+
                             </> : null
                     }
 

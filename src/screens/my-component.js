@@ -18,7 +18,7 @@ export default function MyComponent() {
         let Obj = {
             username: state.authUser.username,
             tweet: tweet,
-            date: new Date(),
+            date: new Date().toDateString(),
             like: 0,
             unlike: 0,
             uid: state.authUser.uid
@@ -32,15 +32,9 @@ export default function MyComponent() {
         }
         else {
 
-            let tweetRef = collection(db, 'tweets');
-            let tweetData = await addDoc(tweetRef, Obj);
-            console.log(tweetData);
-
-            // let allTweetsClone = alltweets.slice(0);
-            // allTweetsClone.push(tweetObj)
-
-            // dispatch({ type: "TWEETS", payload: allTweetsClone });
-            // // console.log(tweetData);
+            let tweetRef = doc(collection(db, 'tweets'));
+             await setDoc(tweetRef, Obj);
+           
 
             setUserTweet('');
 

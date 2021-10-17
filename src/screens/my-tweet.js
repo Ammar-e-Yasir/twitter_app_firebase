@@ -16,35 +16,17 @@ export default function MyTweet() {
 
 
     useEffect(async () => {
-        let studentRef = collection(db, 'tweets');
-        let q = query(studentRef, where("uid", "==", state.authUser.uid))
+        let mytweetRef = collection(db, 'tweets');
+        let q = query(mytweetRef, where("uid", "==", state.authUser.uid))
         let myTweet = await getDocs(q);
+        let my_tweet = [];
         myTweet.forEach((doc) => {
-            // console.log(doc.id, doc.data());
-            let d = doc.data();
-            let element = ` <div id='main'>
-            <h1>${d.username}</h1>
-            <h4>${d.tweet}</h4>
-            
-            </div>`;
+            dispatch({ type: "MY_TWEETS", payload: doc.data() });
+            my_tweet.push(doc.data())
 
-            document.getElementById('asd').innerHTML += element;
-
-
-
-
-
-
-
-
-
-
-            // let myTweetClone = mytweet.slice(0);
-            // myTweetClone.push(doc.data());
-            // setMyTweet(myTweetClone);
         });
+        setMyTweet(my_tweet)
 
-        // dispatch({type: "MY_TWEETS", payload: mytweet });
 
     }, [])
 
@@ -62,23 +44,21 @@ export default function MyTweet() {
 
             <li><Link to='/write'>Add Tweet</Link></li>
 
-            <div id='asd'>
 
-                {/* {
-                mytweet.map((d, index) => {
+            {
+                mytweet.map(({username,date,tweet}, index) => {
                     return (
-                        <div className="mytweet" key={index}>
-                            <h1>{d.username}</h1>
-                            <h4>{d.tweet}</h4>
-                            <button>Like{d.like}</button>
-                            <button>Unlike {d.unlike}</button>
+                        <div className="main" key={index}>
+                            <h1>{username}</h1>
+                            <p>{date}</p>
+                            <h4>{tweet}</h4>
+                           
                         </div>
 
                     )
                 })
 
-            } */}
-            </div>
+            }
         </div>
     );
 

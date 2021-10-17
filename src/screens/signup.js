@@ -3,11 +3,10 @@ import { GlobalContext } from '../context/context';
 import './form.css';
 import { auth, createUserWithEmailAndPassword, db, setDoc, doc,collection,getDocs } from '../configs/firebase';
 
-function Snacks() {
+function SignUp() {
     const { state, dispatch } = useContext(GlobalContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userRole, setUserRole] = useState('trainer');
     const [errMsg, setErrMsg] = useState('');
     const [username, setUserName] = useState('');
     const [usernameErr , setUserNameErr] = useState('');
@@ -22,7 +21,6 @@ function Snacks() {
                 username:username,
                 email: user.email,
                 uid: user.uid,
-                userRole: userRole
             });
 
         } catch (err) {
@@ -172,4 +170,4 @@ switch(err.message){
     )
 }
 
-export default Snacks;
+export default SignUp;

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { GlobalContext } from "../context/context";
 import { useContext, useState, useEffect } from "react";
 import { collection, db, getDocs, doc, updateDoc, onSnapshot } from "../configs/firebase";
-import LikeBtn from "../context/like-btn";
-import DislikeBtn from "../context/dislike-btn";
+import LikeBtn from './like-btn'
+import DislikeBtn from './dislike-btn';
 // 
 
 export default function UserHome() {

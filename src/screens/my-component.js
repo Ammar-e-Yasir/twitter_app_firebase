@@ -17,10 +17,8 @@ export default function MyComponent() {
 
         let Obj = {
             username: state.authUser.username,
+            time: new Date().toDateString(),
             tweet: tweet,
-            date: new Date().toDateString(),
-            like: 0,
-            unlike: 0,
             uid: state.authUser.uid
         }
 
@@ -40,6 +38,8 @@ export default function MyComponent() {
 
 
         }
+
+ 
 
     }
 

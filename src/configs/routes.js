@@ -8,7 +8,7 @@ import {
 import Nav from '../components/navbar';
 import Signup from '../screens/signup';
 import Signin from '../screens/signin';
-import { auth, onAuthStateChanged, db, doc, getDoc } from './firebase';
+import { auth, onAuthStateChanged, db, doc, getDoc,collection,getDocs } from './firebase';
 import UserHome from "../screens/user-home";
 import MyTweet from "../screens/my-tweet";
 import MyProfile from "../screens/my-profile";
@@ -23,6 +23,7 @@ export default function App() {
             }
             else {
                 console.log('user not found');
+                fetchAllUserInfo();
             }
         })
     }, []);
@@ -33,7 +34,23 @@ export default function App() {
         userInfo = userInfo.data();
         // console.log(userInfo);
         dispatch({ type: "AUTH_USER", payload: userInfo });
+        
     }
+
+    const fetchAllUserInfo = async () =>{
+
+        let userRef = collection(db, 'users');
+        let allUsersInfo = await getDocs(userRef);
+        
+        allUsersInfo.forEach((doc) => {
+
+            dispatch({ type: "ALL_USERS", payload:doc.data() });
+    });
+    
+    }
+
+
+
 
     return (
         <Router>
@@ -48,7 +65,7 @@ export default function App() {
                     {
                         state.authUser ?
                             null : <>
-                                <Route path="/signup">
+                                <Route exact path="/">
                                     <Signup />
                                 </Route>
                                 <Route path="/signin">

@@ -10,7 +10,6 @@ export default function Nav() {
     const { state, dispatch } = useContext(GlobalContext);
 
 
-
     const logOut = async ()=>{
       await signOut(auth);
     }
@@ -24,7 +23,7 @@ export default function Nav() {
                 {state.authUser ?
                     null : <>
                         <li>
-                            <Link to="/signup">Signup</Link>
+                            <Link to="/">Signup</Link>
                         </li>
                         <li>
                             <Link to="/signin">Signin</Link>

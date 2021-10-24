@@ -41,17 +41,18 @@ export default function MyTweet() {
     return (
 
         <div>
+            <h1>This is my Tweet Page ! </h1>
 
             <li><Link to='/write'>Add Tweet</Link></li>
 
 
             {
-                mytweet.map(({username,date,tweet}, index) => {
+                mytweet.map(({username,time,tweet}, index) => {
                     return (
                         <div className="main" key={index}>
                             <h1>{username}</h1>
-                            <p>{date}</p>
-                            <h4>{tweet}</h4>
+                            <h4>{time}</h4>
+                            <h3>{tweet}</h3>
                            
                         </div>
 

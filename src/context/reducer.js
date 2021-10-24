@@ -1,7 +1,11 @@
 export let data = {
     authUser: null,
+    allUsers : [],
     allTweets: [],
-    mytweets : []
+    mytweets : [],
+    likeTweets : [],
+    unlieTweets :[]
+
 
 }
 
@@ -11,6 +15,15 @@ export function reducer(state, action) {
             return {
                 ...state,
                 authUser: action.payload
+            }
+        }
+        case "ALL_USERS" : {
+            let allUsersClone = state.allUsers.slice(0);
+            allUsersClone.push(action.payload)
+            // console.log(allUsersClone)
+            return {
+                ...state,
+                allUsers:allUsersClone
             }
         }
 
@@ -36,6 +49,19 @@ export function reducer(state, action) {
             return {
                 ...state,
                 mytweets: myTweetsClone
+            }
+        }
+
+        case "LIKE_DATA" : {
+            let likeTweetsClone = state.likeTweets.slice(0);
+            likeTweetsClone.push(action.payload);
+            console.log(likeTweetsClone)
+
+            
+            return {
+                ...state,
+                likeTweets : likeTweetsClone
+
             }
         }
 

@@ -41,9 +41,9 @@ export default function App() {
 
         let userRef = collection(db, 'users');
         let allUsersInfo = await getDocs(userRef);
-        
-        allUsersInfo.forEach((doc) => {
 
+        allUsersInfo.forEach((doc) => {
+console.log(doc.data())
             dispatch({ type: "ALL_USERS", payload:doc.data() });
     });
     

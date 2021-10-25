@@ -5,7 +5,7 @@ import { auth, createUserWithEmailAndPassword, db, setDoc, doc, collection, getD
 
 
 function SignUp() {
-    // const { state, dispatch } = useContext(GlobalContext);
+    const { state, dispatch } = useContext(GlobalContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
@@ -15,9 +15,12 @@ function SignUp() {
 
 
     const register = async () => {
-
+        
+        
+        
         try {
-
+            state.allUsers.map(async (data)=>{
+                if(data.username != username){
                     let { user } = await createUserWithEmailAndPassword(auth, email, password);
                     let dataRef = doc(db, 'users', user.uid);
                     await setDoc(dataRef, {
@@ -25,9 +28,16 @@ function SignUp() {
                         email: user.email,
                         uid: user.uid,
                     });
+                }else{
+                    console.log('Username already Exists')
+                }
+            })
+    
+           
+                   
                 }
                 
-    
+        
         catch (err) {
             console.log(err.message)
             setErrMsg(err.message);
@@ -36,8 +46,9 @@ function SignUp() {
             }, 2000)
 
         }
+    
 
-  
+    
 
 
 

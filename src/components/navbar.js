@@ -4,14 +4,21 @@ import {
 } from "react-router-dom";
 import { GlobalContext } from "../context/context";
 import {auth,signOut} from '../configs/firebase'
-import { useEffect,useHistory } from "react/cjs/react.development";
+import { useEffect,useHistory } from "react-router-dom";
 
 export default function Nav() {
+    let history = useHistory();
     const { state, dispatch } = useContext(GlobalContext);
 
 
     const logOut = async ()=>{
-      await signOut(auth);
+        try {
+            
+            await signOut(auth);
+history.push('/signin');
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 

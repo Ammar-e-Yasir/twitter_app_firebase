@@ -51,21 +51,21 @@ export default function UserHome() {
 
         //     setClicked(false);
         // }
-        let a = e.target.parentNode;
-        console.log(a)
-        dispatch({type : "LIKE_DATA" , payload: a})
+        // let a = e.target.parentNode;
+        // console.log(a)
+        // dispatch({type : "LIKE_DATA" , payload: a})
     }
 
 
     
 
-    const unlikeTweet = (e) => {
-        if (clicked) {
-            console.log('unlike', e.target.parentNode);
-            setClicked(false)
+    // const unlikeTweet = (e) => {
+    //     if (clicked) {
+    //         console.log('unlike', e.target.parentNode);
+    //         setClicked(false)
 
-        }
-    }
+    //     }
+    // }
 
 
 

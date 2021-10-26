@@ -1,16 +1,16 @@
-import react, { useContext,useState } from "react";
+import  { useContext,useState } from "react";
 import { GlobalContext } from "../context/context";
 
 
 export default function DislikeBtn(){
     const {state} = useContext(GlobalContext);
-    const [dislikers,setDisLikers] = useState([]);
+    const [dislikers] = useState([]);
     const [dislike,setdislike] = useState(dislikers.length);
     const id = state.authUser.uid;
 
     return(
-        <div>
-            <button onClick={()=>{
+        <div className='d-inline px-2'>
+            <button className='btn btn-primary shadow-none' onClick={()=>{
                     if (dislikers.indexOf(id) > -1){
                         dislikers.splice(dislikers.indexOf(id),1);
                         setdislike(dislikers.length)

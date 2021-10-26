@@ -20,7 +20,7 @@ export function reducer(state, action) {
         case "ALL_USERS" : {
             let allUsersClone = state.allUsers.slice(0);
             allUsersClone.push(action.payload)
-            console.log(allUsersClone)
+            // console.log(allUsersClone)
             return {
                 ...state,
                 allUsers:allUsersClone
@@ -70,3 +70,5 @@ export function reducer(state, action) {
 
     }
 }
+
+

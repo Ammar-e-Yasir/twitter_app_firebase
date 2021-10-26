@@ -1,48 +1,46 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import {
     Link
 } from "react-router-dom";
 import { GlobalContext } from "../context/context";
-import {auth,signOut} from '../configs/firebase'
-import { useEffect,useHistory } from "react-router-dom";
+import { auth, signOut } from '../configs/firebase'
+import Logout from "../screens/logout";
 
 export default function Nav() {
-    let history = useHistory();
-    const { state, dispatch } = useContext(GlobalContext);
+    const { state} = useContext(GlobalContext);
 
 
-    const logOut = async ()=>{
-        try {
-            
-            await signOut(auth);
-history.push('/signin');
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    
+    
+    
 
 
 
     return (
-        <nav>
-            <ul>
+        <div>
+            <nav className='w-75 mx-auto mt-2'>
 
-                {state.authUser ?
-                    null : <>
-                        <li>
-                            <Link to="/">Signup</Link>
-                        </li>
-                        <li>
-                            <Link to="/signin">Signin</Link>
-                        </li>
-                    </>
 
-                }
+                <ul className="nav bg-dark justify-content-center rounded">
 
-                {
-                    state.authUser ?
-                        <>
+                    {/* {state.authUser ?
+                        null : <>
+                            <li className="nav-item ">
+                                <Link to='/' className="nav-link text-light">Signup</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to='/signin' className="nav-link text-light">Signin</Link>
+                            </li>
 
+
+                        </>
+
+                    } */}
+
+                    {
+                        state.authUser ?
+                            <>
+                                {/* 
                             <li>
                                 <Link to="/user-home">Userhome</Link>
                             </li>
@@ -52,16 +50,33 @@ history.push('/signin');
                             <li>
                                 <Link to="/user-profile">Profile</Link>
                             </li>
-                            <button onClick={logOut}>logout</button>
+                            <button onClick={logOut}>logout</button> */}
+
+
+                                <li className="nav-item ">
+                                    <Link to='/' className="nav-link text-light">Home</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/user-tweet' className="nav-link text-light">My Tweet</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/user-profile' className="nav-link text-light">Profile</Link>
+                                </li>
+                                <Logout/>
 
 
 
 
-                        </> : null
-                }
 
-            </ul>
-        </nav>
+                            </> : null
+                    }
+
+                </ul>
+
+
+            </nav>
+
+        </div>
     )
 }
 

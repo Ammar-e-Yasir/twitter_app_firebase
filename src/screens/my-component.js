@@ -1,15 +1,15 @@
 import React, { useContext, useState } from "react";
 import { GlobalContext } from "../context/context";
-import { db, doc, setDoc, collection,addDoc } from "../configs/firebase"
+import { db, doc, setDoc, collection,query,orderBy,addDoc } from "../configs/firebase"
 
 
 export default function MyComponent() {
-    const { state, dispatch } = useContext(GlobalContext);
+    const { state } = useContext(GlobalContext);
 
 
     const [tweet, setUserTweet] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [alltweets, setAllTweets] = useState([]);
+    // const [alltweets, setAllTweets] = useState([]);
 
 
 
@@ -17,7 +17,7 @@ export default function MyComponent() {
 
         let Obj = {
             username: state.authUser.username,
-            time: new Date().toDateString(),
+            time: new Date().toLocaleString(),
             tweet: tweet,
             uid: state.authUser.uid
         }
@@ -31,29 +31,34 @@ export default function MyComponent() {
         else {
 
             let tweetRef = doc(collection(db, 'tweets'));
-             await setDoc(tweetRef, Obj);
-           
+            await setDoc(tweetRef, Obj);
+          
+
 
             setUserTweet('');
 
 
         }
 
- 
+
 
     }
 
     return (
-        <div>
 
-            <label>Write Tweet<input type="text" value={tweet} onChange={(ev) => { setUserTweet(ev.target.value) }} /></label>
-            {errMsg ? <span>{errMsg}</span> : null}
 
-            <br />
+        <div className="form-group w-50 mx-auto" >
+            {errMsg ? <small className="form-text text-muted">{errMsg}</small> : null}
 
-            <button onClick={addTweet}>Add Tweet</button>
-
+            <textarea className="form-control border border-secondary shadow-none" rows='5' placeholder='write something !' value={tweet} onChange={(ev) => { setUserTweet(ev.target.value) }} ></textarea>
+            <div className='nav justify-content-end p-3'>
+                {tweet ? <button className='btn btn-primary' onClick={addTweet}>Post</button> : null}
+            </div>
         </div>
+
+
+
+
     )
 }
 

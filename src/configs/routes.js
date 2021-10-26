@@ -6,9 +6,9 @@ import {
     Route,
 } from "react-router-dom";
 import Nav from '../components/navbar';
-import Signup from '../screens/signup';
-import Signin from '../screens/signin';
-import { auth, onAuthStateChanged, db, doc, getDoc,collection,getDocs } from './firebase';
+import SignUp from "../screens/signup";
+import SignIn from '../screens/signin';
+import { auth, onAuthStateChanged, db, doc, getDoc, collection, getDocs } from './firebase';
 import UserHome from "../screens/user-home";
 import MyTweet from "../screens/my-tweet";
 import MyProfile from "../screens/my-profile";
@@ -34,19 +34,18 @@ export default function App() {
         userInfo = userInfo.data();
         // console.log(userInfo);
         dispatch({ type: "AUTH_USER", payload: userInfo });
-        
+
     }
 
-    const fetchAllUserInfo = async () =>{
+    const fetchAllUserInfo = async () => {
 
         let userRef = collection(db, 'users');
         let allUsersInfo = await getDocs(userRef);
 
         allUsersInfo.forEach((doc) => {
-console.log(doc.data())
-            dispatch({ type: "ALL_USERS", payload:doc.data() });
-    });
-    
+            dispatch({ type: "ALL_USERS", payload: doc.data() });
+        });
+
     }
 
 
@@ -61,12 +60,13 @@ console.log(doc.data())
 
 
 
-
+                    {/* 
                     {
                         state.authUser ?
                             null : <>
+
                                 <Route exact path="/">
-                                    <Signup />
+                                    <SignUp />
                                 </Route>
                                 <Route path="/signin">
                                     <Signin />
@@ -74,26 +74,30 @@ console.log(doc.data())
 
                             </>
                     }
+ */}
 
 
 
-
-                    {
+                    {/* {
                         state.authUser ?
                             <>
 
 
-                                <Route path='/user-home' component={UserHome} />
+                                <Route exact path='/' component={UserHome} />
                                 <Route path='/user-tweet' component={MyTweet} />
                                 <Route path='/user-profile' component={MyProfile} />
-                                <Route exact path='/write' component={MyComponent} />
+                                <Route path='/write' component={MyComponent} />
 
                             </> : null
-                    }
+                    } */}
 
 
-
-
+                    <Route path='/' component={SignIn} />
+                    <Route path='/register' component={SignUp} />
+                    <Route exact path='/' component={UserHome} />
+                    <Route path='/user-tweet' component={MyTweet} />
+                    <Route path='/user-profile' component={MyProfile} />
+                    <Route path='/write' component={MyComponent} />
 
 
 

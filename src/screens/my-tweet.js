@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { GlobalContext } from "../context/context";
 import { getDocs, db, collection, query, where } from "../configs/firebase"
 import "./form.css";
+import MyComponent from "./my-component";
 
 
 export default function MyTweet() {
@@ -15,7 +15,8 @@ export default function MyTweet() {
 
 
 
-    useEffect(async () => {
+    useEffect(() => {
+        const b = async()=>{
         let mytweetRef = collection(db, 'tweets');
         let q = query(mytweetRef, where("uid", "==", state.authUser.uid))
         let myTweet = await getDocs(q);
@@ -26,7 +27,8 @@ export default function MyTweet() {
 
         });
         setMyTweet(my_tweet)
-
+    }
+    b()
 
     }, [])
 
@@ -40,22 +42,27 @@ export default function MyTweet() {
 
     return (
 
-        <div>
-            <h1>This is my Tweet Page ! </h1>
-
-            <li><Link to='/write'>Add Tweet</Link></li>
+        <div className='w-75 mx-auto mt-3'>
+            <MyComponent/>
 
 
             {
                 mytweet.map(({username,time,tweet}, index) => {
-                    return (
-                        <div className="main" key={index}>
-                            <h1>{username}</h1>
-                            <h4>{time}</h4>
-                            <h3>{tweet}</h3>
-                           
-                        </div>
 
+
+                    return(
+                    <div className='w-50 mx-auto border p-2 mb-5' key={index}>
+                    <div className='d-flex flex-row justify-content-between'>
+                    <h1>{username.replace(username[0],username[0].toUpperCase())}</h1>
+                    <p className='pt-2 font-weight-normal'>{time}</p>
+                    </div>
+                    <p>{tweet}</p>
+                    
+                 
+            
+
+
+                </div>
                     )
                 })
 

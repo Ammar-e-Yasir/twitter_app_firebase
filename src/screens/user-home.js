@@ -1,19 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { GlobalContext } from "../context/context";
-import { useContext, useState, useEffect } from "react";
-import { collection, db, getDocs, doc, updateDoc, onSnapshot } from "../configs/firebase";
+import { useContext, useEffect } from "react";
+import { collection, db, getDocs,query,orderBy } from "../configs/firebase";
 import LikeBtn from './like-btn'
 import DislikeBtn from './dislike-btn';
+import MyComponent from "./my-component";
 // 
 
 export default function UserHome() {
     const { state, dispatch } = useContext(GlobalContext);
 
 
-    useEffect(async () => {
+    useEffect( () => {
+       const  a = async()=>{
         let tweetsRef = collection(db, 'tweets');
-        let userAllTweet = await getDocs(tweetsRef);
+        const q = query(tweetsRef,orderBy("time","desc"));
+        let userAllTweet = await getDocs(q);
 
         // let allTweetClone = alltweet.slice(0);
         userAllTweet.forEach((doc) => {
@@ -25,61 +27,26 @@ export default function UserHome() {
             dispatch({ type: "ALL_TWEETS", payload: obj })
 
         });
+    }
+    a();
 
         // setAllTweet(allTweetClone);
 
     }, [])
 
 
-    const likeTweet = async (e) => {
-        // if (clicked) {
-        //     let tweetId = e.target.parentNode.id;
-        //     console.log('like', e.target.parentNode);
-
-        //     const washingtonRef = doc(db, "tweets", tweetId);
-
-        //     // Set the "capital" field of the city 'DC'
-        //     await updateDoc(washingtonRef, {
-        //         like: 1
-        //     });
-
-
-        //     const unsub = onSnapshot(doc(db, "tweets", tweetId), (doc) => {
-        //         console.log("Current data: ", doc.data());
-
-        //     });
-
-        //     setClicked(false);
-        // }
-        // let a = e.target.parentNode;
-        // console.log(a)
-        // dispatch({type : "LIKE_DATA" , payload: a})
-    }
-
-
     
-
-    // const unlikeTweet = (e) => {
-    //     if (clicked) {
-    //         console.log('unlike', e.target.parentNode);
-    //         setClicked(false)
-
-    //     }
-    // }
-
-
-
-  
 
 
 
     return (
 
-
+ <div className='w-75 mx-auto mt-3'>
+<MyComponent/>
         <div>
 
-<h1>This is User Home Page </h1>
-            <li><Link to='/write'>Add Tweet</Link></li>
+
+
             {
                 
                 state.allTweets.map(({ username, tweet, time, id }, index) => {
@@ -88,19 +55,16 @@ export default function UserHome() {
                     return (
 
                     
-                        <div className='tweet' key={index} id={id}>
-                            <h1>{username}</h1>
-                            <p>{time}</p>
+                        <div className='w-50 mx-auto border p-2 mb-5 ' key={index} id={id}>
+                            <div className='d-flex flex-row justify-content-between'>
+                            <h1 className='bg-secondary w-50 text-light rounded'>{username.replace(username[0],username[0].toUpperCase())}</h1>
+                            <p className='pt-2 font-weight-normal'>{time}</p>
+                            </div>
                             <p>{tweet}</p>
                             
-
-  
-
-                            <div style={{display:'flex'}}>
-                                {/* <button onClick={likeTweet}> like{like}</button>
-                                <button onClick={unlikeTweet}>dislike{unlike}</button> */}
-                                <LikeBtn/><DislikeBtn/>
-                            </div>
+                          <LikeBtn/>
+                          <DislikeBtn/>
+                         
                     
         
 
@@ -114,7 +78,7 @@ export default function UserHome() {
 
         </div>
 
-
+</div>
     );
 
 

@@ -1,8 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,signOut } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc, addDoc, collection, getDocs, query,where,updateDoc,onSnapshot } from "firebase/firestore";
+import { getFirestore,orderBy, doc, setDoc, getDoc, addDoc, collection, getDocs, query,where,updateDoc,onSnapshot } from "firebase/firestore";
 // import { doc, onSnapshot } from "firebase/firestore";
-
 const firebaseApp = initializeApp({
     apiKey: "AIzaSyDeUSsXA3Mikbc_lDZeYfNf-EgQp-yXVns",
     authDomain: "react-app-firebase1.firebaseapp.com",
@@ -33,5 +32,8 @@ export {
     where,
     signOut,
     updateDoc,
-    onSnapshot
+    onSnapshot,
+getFirestore,
+orderBy
+
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { GlobalContext } from "../context/context";
 import { useContext, useEffect } from "react";
 import { collection, db, getDocs,query,orderBy } from "../configs/firebase";
@@ -9,7 +9,7 @@ import MyComponent from "./my-component";
 
 export default function UserHome() {
     const { state, dispatch } = useContext(GlobalContext);
-
+    const [allTweets , setAllTweets] = useState([]);
 
     useEffect( () => {
        const  a = async()=>{
@@ -17,20 +17,20 @@ export default function UserHome() {
         const q = query(tweetsRef,orderBy("time","desc"));
         let userAllTweet = await getDocs(q);
 
-        // let allTweetClone = alltweet.slice(0);
+        let allTweetsClone = allTweets.slice(0);
         userAllTweet.forEach((doc) => {
             let obj = doc.data();
             obj.id = doc.id;
-            // allTweetClone.push(obj);
+            allTweetsClone.push(obj);
 
 
-            dispatch({ type: "ALL_TWEETS", payload: obj })
+            // dispatch({ type: "ALL_TWEETS", payload: obj })
 
         });
+        setAllTweets(allTweetsClone);
     }
     a();
 
-        // setAllTweet(allTweetClone);
 
     }, [])
 
@@ -49,7 +49,7 @@ export default function UserHome() {
 
             {
                 
-                state.allTweets.map(({ username, tweet, time, id }, index) => {
+            allTweets.map(({ username, tweet, time, id }, index) => {
                     // console.log(id)
                 
                     return (

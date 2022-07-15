@@ -197,7 +197,7 @@ function SignUp() {
                 </div>
 
                 <button className="btn btn-outline-primary mt-4 shadow-none" onClick={register}>Register</button>
-                <p className='text-center mt-3'>Already have an account ? <Link to='/signin'>Signin</Link></p>
+                <p className='text-center mt-3'>Already have an account ? <Link to='/'>Signin</Link></p>
             </div>
 
 

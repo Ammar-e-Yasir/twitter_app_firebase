@@ -1,17 +1,19 @@
 import React, {useState } from 'react';
 import { auth, signInWithEmailAndPassword } from '../configs/firebase';
 import { Link } from 'react-router-dom';
+import {useHistory} from 'react'
 
 function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const signin = async () => {
-
+    const login = async () => {
         
         try {
          await signInWithEmailAndPassword(auth, email, password);
-        } catch (err) {
+        } 
+
+        catch (err) {
             setErrMsg(err.message);
             setTimeout(() => {
                 setErrMsg('');
@@ -48,8 +50,8 @@ function SignIn() {
 
             </div>
 
-            <button className="btn btn-outline-primary shadow-none mt-5" onClick={signin}>Login</button>
-            <p className='text-center'>Don't have an account ? <Link to='/'>register</Link></p>
+            <button className="btn btn-outline-primary shadow-none mt-5" onClick={login}>Login</button>
+            <p className='text-center'>Don't have an account ? <Link to='/signup'>register</Link></p>
         </div>
 
 

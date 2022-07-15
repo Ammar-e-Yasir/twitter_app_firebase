@@ -1,11 +1,10 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext,useHistory } from "react";
 import { GlobalContext } from "../context/context";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
-import Nav from '../components/navbar';
 import SignUp from "../screens/signup";
 import SignIn from '../screens/signin';
 import { auth, onAuthStateChanged, db, doc, getDoc, collection, getDocs } from './firebase';
@@ -13,6 +12,7 @@ import UserHome from "../screens/user-home";
 import MyTweet from "../screens/my-tweet";
 import MyProfile from "../screens/my-profile";
 import MyComponent from "../screens/my-component";
+import Nav from "../components/navbar"
 export default function App() {
     const { state, dispatch } = useContext(GlobalContext);
 
@@ -20,10 +20,14 @@ export default function App() {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 fetchUserInfo(user.uid);
+                console.log('user found !')
+
             }
             else {
                 console.log('user not found');
                 fetchAllUserInfo();
+                dispatch({ type: "AUTH_USER", payload: null });
+
             }
         })
     }, []);
@@ -54,32 +58,32 @@ export default function App() {
     return (
         <Router>
             <div>
-                <Nav />
+                <Nav/>
                 <Switch>
 
 
+                
 
 
-                    {/* 
+                    
                     {
-                        state.authUser ?
+                        state?.authUser ?
                             null : <>
 
                                 <Route exact path="/">
-                                    <SignUp />
+                                    <SignIn />
                                 </Route>
-                                <Route path="/signin">
-                                    <Signin />
+                                <Route  path="/signup">
+                                    <SignUp />
                                 </Route>
 
                             </>
                     }
- */}
 
 
 
-                    {/* {
-                        state.authUser ?
+{
+                        state?.authUser ?
                             <>
 
 
@@ -89,15 +93,20 @@ export default function App() {
                                 <Route path='/write' component={MyComponent} />
 
                             </> : null
-                    } */}
+                    }
 
 
-                    <Route path='/' component={SignIn} />
-                    <Route path='/register' component={SignUp} />
-                    <Route exact path='/' component={UserHome} />
+
+
+
+                   
+{/* 
+                    <Route exact path='/' component={SignIn} />
+                    <Route path='/signup' component={SignUp} />
+                    <Route path='/user-home' component={UserHome} />
                     <Route path='/user-tweet' component={MyTweet} />
                     <Route path='/user-profile' component={MyProfile} />
-                    <Route path='/write' component={MyComponent} />
+                    <Route path='/write' component={MyComponent} /> */}
 
 
 

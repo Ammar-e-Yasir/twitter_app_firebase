@@ -1,12 +1,12 @@
 import { auth, signOut } from '../configs/firebase'
 import {useHistory} from 'react'
 export default function Logout(){
-    let history = useHistory();
+    // let history = useHistory();
 const logout = async () => {
     try {
 
         await signOut(auth);
-        history.push('/')
+        // history.push('/')
       
     } catch (error) {
         console.log(error)
